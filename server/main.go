@@ -16,7 +16,7 @@ import (
     "golang.org/x/crypto/bcrypt"
 )
 
-var jwtKey = []byte("your_secret_key_here") // 请换成自己的安全密钥
+var jwtKey = []byte("9UltBRajmQbIhdd60TC5QTK3M92Ojo4XZSnSID/MtdE=") // 请换成自己的安全密钥
 
 type Credentials struct {
     Username string `json:"username"`
@@ -29,7 +29,9 @@ type Claims struct {
 }
 
 var upgrader = websocket.Upgrader{
-    CheckOrigin: func(r *http.Request) bool { return true }, // 生产环境改成可信域名检查
+    CheckOrigin: func(r *http.Request) bool { 
+		origin := r.Header.Get("Origin")
+        return origin == "https://secure.910602.xyz" }, // 生产环境改成可信域名检查
 }
 
 func main() {
@@ -51,8 +53,8 @@ func main() {
     // 受保护的 WebSocket 接口
     r.Handle("/ws", jwtMiddleware(http.HandlerFunc(wsHandler(db))))
 
-    fmt.Println("✅ Server listening on :8080")
-    log.Fatal(http.ListenAndServe(":8080", r))
+    fmt.Println("✅ Server listening on :9909")
+    log.Fatal(http.ListenAndServe(":9909", r))
 }
 
 func initDB(db *sql.DB) {
