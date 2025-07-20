@@ -30,7 +30,7 @@ cd secure-chat-server
 ```bash
 go run main.go
 ```
-服务默认监听在 :8080 端口
+服务默认监听在 :9949 端口
 
 接口说明
 POST /api/register
